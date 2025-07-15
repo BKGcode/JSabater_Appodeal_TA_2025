@@ -57,8 +57,14 @@ namespace FGUIStarter
 
         protected override void DoStateTransition(SelectionState state, bool instant)
         {
-            base.DoStateTransition(state, instant);
-            if (state == SelectionState.Pressed)
+            var transitionState = state;
+            if (state == SelectionState.Disabled)
+            {
+                transitionState = SelectionState.Pressed;
+            }
+            base.DoStateTransition(transitionState, instant);
+
+            if (state == SelectionState.Pressed || state == SelectionState.Disabled)
             {
                 ApplyPressedVisual();
             }
